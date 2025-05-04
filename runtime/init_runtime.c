@@ -21,7 +21,7 @@
 #include "../heap/heap_alloc.h"
 #include "print/print.h"
 
-void __handle_exit()
+void handle_exit()
 {
     // Cleanup the heap
     cleanup_heap();
@@ -36,7 +36,7 @@ void __handle_exit()
 void init_runtime()
 {
     // Add at exit hooks
-    atexit(__handle_exit);
+    atexit(handle_exit);
 
     // Initialize the print runtime
     init_print_runtime();
