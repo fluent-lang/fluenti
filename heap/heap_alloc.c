@@ -158,7 +158,7 @@ void destroy_guard(HeapGuard *guard)
     // See if we have an on_destroy function
     if (guard->on_destroy != NULL)
     {
-        guard->on_destroy(guard->value);
+        guard->on_destroy(guard);
     }
 
     // Destroy the mutex
