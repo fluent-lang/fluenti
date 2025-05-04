@@ -24,7 +24,7 @@
 #endif
 
 #ifndef FunctionPointer
-typedef void (*FunctionPointer)(void *);
+typedef void (*FunctionPointer)(FluentObject *);
 #endif
 
 #ifndef MUTEX_H
