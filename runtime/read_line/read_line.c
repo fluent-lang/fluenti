@@ -17,7 +17,11 @@
 //
 
 #include "../../types/int.h"
+#ifndef _WIN32
 #include <fluent_libc/stdi/library.h>
+#else
+#include "win_read_line.h"
+#endif
 #include "read_line.h"
 
 #include "../print/print.h"
@@ -37,8 +41,13 @@ String runtime_read_line()
 
     String str = create_string();
 
+#ifdef _WIN32
+    // Use the windows-compatible fluent_libc read_line impl
+    const char *line = win_read_line();
+#else
     // Use fluent_libc read_lime impl
     const char *line = read_line();
+#endif
 
     // Write the string
     write_string(&str, line);

@@ -36,6 +36,8 @@ add_executable(fluenti main.c
         runtime/read_line/read_line.h
         runtime/object/string.h
         runtime/object/string.c
+        runtime/read_line/win_read_line.c
+        runtime/read_line/win_read_line.h
 )
 
 # Add fluent_libc as a dependency
