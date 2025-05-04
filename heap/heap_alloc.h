@@ -41,6 +41,7 @@ typedef struct
 } HeapGuard;
 
 HeapGuard *alloc(size_t size);
+HeapGuard *create_with_prealloc(void **ptr);
 void expand_guard(HeapGuard *guard, size_t size);
 void raise_guard(HeapGuard *guard);
 void drop_guard(HeapGuard *guard);
