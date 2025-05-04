@@ -15,6 +15,7 @@
 #include <fluent_libc/str_copy/library.h>
 
 #include "heap/heap_alloc.h"
+#include "logger/logger.h"
 #include "runtime/init_runtime.h"
 #include "runtime/print/print.h"
 #include "runtime/read_line/read_line.h"
@@ -23,7 +24,10 @@ int main(const int argc, const char **argv) {
     // Initialize the runtime
     init_runtime();
 
-
+    // Warn about unstable behavior for Windows
+#ifdef _WIN32
+    warn("fluent_libc has not been fully tested on Windows. Proceed with caution.");
+#endif
 
     return 0;
 }
