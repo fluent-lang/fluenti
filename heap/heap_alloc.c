@@ -156,8 +156,13 @@ void destroy_guard(HeapGuard *guard)
     // Free the mutex
     free(guard->mutex);
 
+    // Make sure the listener function has not set the element to NULL
+    if (guard->value->element != NULL)
+    {
+        free(guard->value->element);
+    }
+
     // Free the guard's object
-    free(guard->value->element);
     free(guard->value);
 
     // Set the elements to NULL
