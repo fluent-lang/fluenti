@@ -30,7 +30,7 @@ struct Heap
 typedef struct Heap Heap;
 Heap* heap = NULL;
 
-HeapGuard* alloc(const size_t size)
+HeapGuard *create_with_prealloc(void **ptr)
 {
     // Allocate a new guard on the heap
     HeapGuard *guard = malloc(sizeof(HeapGuard));
@@ -67,24 +67,10 @@ HeapGuard* alloc(const size_t size)
         exit(1);
     }
 
-    // Allocate the value itself
-    void *value = malloc(size);
-
-    // Check for allocation failure
-    if (value == NULL)
-    {
-        destroy_mutex(mutex);
-        free(guard);
-        free(mutex);
-        free(object);
-
-        perror("malloc");
-        exit(1);
-    }
-
     // Initialize the objects
-    object->element = value;
-    guard->size = size;
+    object->element = *ptr;
+    guard->on_destroy = NULL;
+    guard->size = sizeof(ptr);
     guard->value = object;
     guard->mutex = mutex;
     guard->ref_count = 1;
@@ -103,10 +89,35 @@ HeapGuard* alloc(const size_t size)
         exit(1);
     }
 
-    // Relocate the heap
-    node->next = heap;
     node->guard = guard;
-    heap = node;
+    if (heap == NULL)
+    {
+        heap = node;
+    } else
+    {
+        // Relocate the heap
+        node->next = heap;
+        heap = node;
+    }
+
+    return guard;
+}
+
+HeapGuard* alloc(const size_t size)
+{
+    // Malloc the value
+    void *ptr = malloc(size);
+
+    // Check for allocation failure
+    if (ptr == NULL)
+    {
+        perror("malloc");
+        exit(1);
+    }
+
+    // Create with prealloc
+    HeapGuard *guard = create_with_prealloc(&ptr);
+    guard->size = size;
 
     return guard;
 }
