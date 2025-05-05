@@ -47,8 +47,11 @@ HashMap *create_hash_map()
     return map;
 }
 
-void insert_to_map(const HashMap *map, const char *key, void *value)
+void insert_to_map(HashMap *map, const char *key, void *value)
 {
+    // Increment the length
+    map->len++;
+
     // Hash the key
     const uint idx = hash(key);
 
@@ -87,8 +90,11 @@ void insert_to_map(const HashMap *map, const char *key, void *value)
     map->table[idx] = entry;
 }
 
-void delete_from_map(const HashMap *map, const char *key)
+void delete_from_map(HashMap *map, const char *key)
 {
+    // Decrement the length
+    map->len -= 1;
+
     // Hash the key
     const uint idx = hash(key);
     HashMap_Entry *current = map->table[idx];

@@ -27,6 +27,7 @@ typedef struct HashMap_Entry
 typedef struct
 {
     HashMap_Entry **table;
+    size_t len;
 } HashMap;
 
 typedef struct {
@@ -35,8 +36,8 @@ typedef struct {
     HashMap_Entry *current;
 } HashMapIterator;
 
-void insert_to_map(const HashMap *map, const char *key, void *value);
-void delete_from_map(const HashMap *map, const char *key);
+void insert_to_map(HashMap *map, const char *key, void *value);
+void delete_from_map(HashMap *map, const char *key);
 void* get_from_map(const HashMap *map, const char *key);
 void destroy_hash_map(HashMap *map);
 HashMap *create_hash_map();
