@@ -38,6 +38,17 @@ add_executable(fluenti main.c
         runtime/object/string.c
         runtime/read_line/win_read_line.c
         runtime/read_line/win_read_line.h
+        cli/argv_impl.c
+        cli/argv_impl.h
+        logger/logger.c
+        logger/logger.h
+        ansi/ansi.h
+        cli/flag/flag.h
+        cli/flag/flag_type.h
+        cli/default/get_flags.c
+        cli/default/get_flags.h
+        shared/on_hash_map_destroy.c
+        shared/on_hash_map_destroy.h
 )
 
 # Add fluent_libc as a dependency
@@ -50,3 +61,4 @@ target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/fluent_libc-prefi
 target_link_libraries(fluenti PRIVATE ${CMAKE_BINARY_DIR}/fluent_libc-prefix/src/fluent_libc-build/libfluent_libc.a)
 target_link_libraries(fluenti PRIVATE ${CMAKE_BINARY_DIR}/fluent_libc-prefix/src/fluent_libc-build/stdi/libstdi.a)
 target_link_libraries(fluenti PRIVATE ${CMAKE_BINARY_DIR}/fluent_libc-prefix/src/fluent_libc-build/str_copy/libstr_copy.a)
+target_link_libraries(fluenti PRIVATE ${CMAKE_BINARY_DIR}/fluent_libc-prefix/src/fluent_libc-build/str_len/libstrlen.a)

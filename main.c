@@ -12,13 +12,9 @@
     conditions; type `fluent l -f` for details.
 */
 
-#include <fluent_libc/str_copy/library.h>
-
-#include "heap/heap_alloc.h"
-#include "logger/logger.h"
+#include "cli/argv_impl.h"
+#include "cli/default/get_flags.h"
 #include "runtime/init_runtime.h"
-#include "runtime/print/print.h"
-#include "runtime/read_line/read_line.h"
 
 int main(const int argc, const char **argv) {
     // Initialize the runtime
@@ -28,6 +24,16 @@ int main(const int argc, const char **argv) {
 #ifdef _WIN32
     warn("fluent_libc has not been fully tested on Windows. Proceed with caution.");
 #endif
+
+    // Get the default CLI flags
+    HeapGuard *flags = get_default_flags();
+
+    // Parse the CLI arguments
+    const HeapGuard *cli_guard = parse_argv(argc, argv, flags->value->element);
+    const Argv *cli_argv = cli_guard->value->element;
+
+    // Drop the flag guard to free it since we don't need it anymore
+    drop_guard(flags);
 
     return 0;
 }

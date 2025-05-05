@@ -16,28 +16,28 @@
 // Created by rodrigo on 5/4/25.
 //
 
-#ifndef FLAG_H
-#define FLAG_H
+#ifndef ARGV_IMPL_H
+#define ARGV_IMPL_H
 
-#ifndef FLAG_TYPE_H
-#include "flag_type.h"
+#ifndef HASH_MAP_H
+#include "../structure/hash_map/hash_map.h"
 #endif
 
-#ifndef BOOL_H
-#include "../../types/bool.h"
+#ifndef HEAP_ALLOC_H
+#include "../heap/heap_alloc.h"
 #endif
 
 #ifndef INT_H
-#include "../../types/int.h"
+#include "../types/int.h"
 #endif
 
 typedef struct
 {
-    FlagType type;
-    char *original_name;
-    char *desc;
-    char *shortcut;
-    bool required;
-} Flag;
+    HashMap *static_flags;
+    HashMap *string_flags;
+    bool success;
+} Argv;
 
-#endif //FLAG_H
+HeapGuard *parse_argv(int argc, const char **argv, HashMap *flags);
+
+#endif //ARGV_IMPL_H

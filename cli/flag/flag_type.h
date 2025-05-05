@@ -16,28 +16,13 @@
 // Created by rodrigo on 5/4/25.
 //
 
-#ifndef FLAG_H
-#define FLAG_H
-
 #ifndef FLAG_TYPE_H
-#include "flag_type.h"
-#endif
+#define FLAG_TYPE_H
 
-#ifndef BOOL_H
-#include "../../types/bool.h"
-#endif
-
-#ifndef INT_H
-#include "../../types/int.h"
-#endif
-
-typedef struct
+typedef enum
 {
-    FlagType type;
-    char *original_name;
-    char *desc;
-    char *shortcut;
-    bool required;
-} Flag;
+    STATIC,
+    STRING,
+} FlagType;
 
-#endif //FLAG_H
+#endif //FLAG_TYPE_H
