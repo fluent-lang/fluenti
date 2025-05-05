@@ -17,4 +17,8 @@ typedef long unsigned int size_t;
 typedef long int ssize_t;
 #endif
 
+#ifndef NULL
+#define NULL (void *)0
+#endif
+
 #endif //INT_H
