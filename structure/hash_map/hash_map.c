@@ -154,3 +154,73 @@ void destroy_hash_map(HashMap *map)
     free(map->table);
     free(map);
 }
+
+HashMapIterator create_map_iterator(const HashMap *map) {
+    HashMapIterator iterator;
+    iterator.map = map;
+    iterator.bucket_index = 0;
+    iterator.current = NULL;
+
+    // Move to the first valid entry in the first non-empty bucket
+    while (
+        iterator.bucket_index < __HASH_MAP_TABLE_SIZE
+        && iterator.map->table[iterator.bucket_index] == NULL
+    )
+    {
+        iterator.bucket_index++;
+    }
+
+    if (iterator.bucket_index < __HASH_MAP_TABLE_SIZE)
+    {
+        iterator.current = iterator.map->table[iterator.bucket_index];
+    }
+
+    return iterator;
+}
+
+// Function to check if there's a next element in the map
+bool map_iterator_has_next(const HashMapIterator *iterator) {
+    if (iterator->current != NULL)
+    {
+        return TRUE;
+    }
+
+    // Move to the next bucket if the current bucket is exhausted
+    int next_bucket_index = iterator->bucket_index + 1;
+    while (
+        next_bucket_index < __HASH_MAP_TABLE_SIZE
+        && iterator->map->table[next_bucket_index] == NULL
+    )
+    {
+        next_bucket_index++;
+    }
+
+    return next_bucket_index < __HASH_MAP_TABLE_SIZE;
+}
+
+void map_iterator_next(HashMapIterator *iterator, const char **key, void **value) {
+    if (iterator->current != NULL)
+    {
+        *key = iterator->current->key;
+        *value = iterator->current->value;
+        iterator->current = iterator->current->next;
+    }
+
+    // If current entry is NULL, move to the next bucket
+    if (iterator->current == NULL)
+    {
+        iterator->bucket_index++;
+        while (
+            iterator->bucket_index < __HASH_MAP_TABLE_SIZE
+            && iterator->map->table[iterator->bucket_index] == NULL
+        )
+        {
+            iterator->bucket_index++;
+        }
+
+        if (iterator->bucket_index < __HASH_MAP_TABLE_SIZE)
+        {
+            iterator->current = iterator->map->table[iterator->bucket_index];
+        }
+    }
+}
