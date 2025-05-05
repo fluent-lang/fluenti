@@ -25,7 +25,6 @@ typedef struct
     HashMap_Entry **table;
 } HashMap;
 
-uint __HashMap_hash(const char *key);
 void insert_to_map(const HashMap *map, const char *key, void *value);
 void delete_from_map(const HashMap *map, const char *key);
 void* get_from_map(const HashMap *map, const char *key);

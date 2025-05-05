@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint __HashMap_hash(const char *key)
+uint hash(const char *key)
 {
     uint hash = 5381;
     char c;
@@ -50,7 +50,7 @@ HashMap *create_hash_map()
 void insert_to_map(const HashMap *map, const char *key, void *value)
 {
     // Hash the key
-    const uint hash = __HashMap_hash(key);
+    const uint idx = hash(key);
 
     // Create a new entry
     HashMap_Entry *entry = malloc(sizeof(HashMap_Entry));
@@ -68,10 +68,10 @@ void insert_to_map(const HashMap *map, const char *key, void *value)
     entry->next = NULL;
 
     // Handle collision using chaining
-    HashMap_Entry *current = map->table[hash];
+    HashMap_Entry *current = map->table[idx];
     if (current == NULL)
     {
-        map->table[hash] = entry;
+        map->table[idx] = entry;
     } else
     {
         // Traverse to the end of the list and insert
@@ -84,14 +84,14 @@ void insert_to_map(const HashMap *map, const char *key, void *value)
     }
 
     // Insert the entry into the table
-    map->table[hash] = entry;
+    map->table[idx] = entry;
 }
 
 void delete_from_map(const HashMap *map, const char *key)
 {
     // Hash the key
-    const uint hash = __HashMap_hash(key);
-    HashMap_Entry *current = map->table[hash];
+    const uint idx = hash(key);
+    HashMap_Entry *current = map->table[idx];
     HashMap_Entry *prev = NULL;
 
     while (current != NULL)
@@ -101,7 +101,7 @@ void delete_from_map(const HashMap *map, const char *key)
             if (prev == NULL)
             {
                 // First entry in the list
-                map->table[hash] = current->next;
+                map->table[idx] = current->next;
             } else
             {
                 prev->next = current->next;
@@ -120,8 +120,8 @@ void delete_from_map(const HashMap *map, const char *key)
 
 void* get_from_map(const HashMap *map, const char *key)
 {
-    const uint hash = __HashMap_hash(key);
-    const HashMap_Entry *current = map->table[hash];
+    const uint idx = hash(key);
+    const HashMap_Entry *current = map->table[idx];
 
     while (current != NULL) {
         if (strcmp(current->key, key) == 0) {
