@@ -35,6 +35,7 @@ HashMap *create_hash_map()
     }
 
     // Create the tables
+    map->len = 0;
     map->table = (HashMap_Entry **)malloc(sizeof(HashMap_Entry *) * __HASH_MAP_TABLE_SIZE);
 
     // Check for allocation failures
