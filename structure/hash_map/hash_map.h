@@ -13,16 +13,16 @@
 #include "../../types/int.h"
 #endif
 
-typedef struct __HashMap_Entry
+typedef struct HashMap_Entry
 {
     char *key;
     void *value;
-    struct __HashMap_Entry *next;
-} __HashMap_Entry;
+    struct HashMap_Entry *next;
+} HashMap_Entry;
 
 typedef struct
 {
-    __HashMap_Entry **table;
+    HashMap_Entry **table;
 } HashMap;
 
 uint __HashMap_hash(const char *key);

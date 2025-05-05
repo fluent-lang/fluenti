@@ -35,7 +35,7 @@ HashMap *create_hash_map()
     }
 
     // Create the tables
-    map->table = (__HashMap_Entry **)malloc(sizeof(__HashMap_Entry *) * __HASH_MAP_TABLE_SIZE);
+    map->table = (HashMap_Entry **)malloc(sizeof(HashMap_Entry *) * __HASH_MAP_TABLE_SIZE);
 
     // Check for allocation failures
     if (map->table == NULL)
@@ -53,7 +53,7 @@ void insert_to_map(const HashMap *map, const char *key, void *value)
     const uint hash = __HashMap_hash(key);
 
     // Create a new entry
-    __HashMap_Entry *entry = malloc(sizeof(__HashMap_Entry));
+    HashMap_Entry *entry = malloc(sizeof(HashMap_Entry));
 
     // Check for allocation failures
     if (entry == NULL)
@@ -68,7 +68,7 @@ void insert_to_map(const HashMap *map, const char *key, void *value)
     entry->next = NULL;
 
     // Handle collision using chaining
-    __HashMap_Entry *current = map->table[hash];
+    HashMap_Entry *current = map->table[hash];
     if (current == NULL)
     {
         map->table[hash] = entry;
@@ -91,8 +91,8 @@ void delete_from_map(const HashMap *map, const char *key)
 {
     // Hash the key
     const uint hash = __HashMap_hash(key);
-    __HashMap_Entry *current = map->table[hash];
-    __HashMap_Entry *prev = NULL;
+    HashMap_Entry *current = map->table[hash];
+    HashMap_Entry *prev = NULL;
 
     while (current != NULL)
     {
@@ -121,7 +121,7 @@ void delete_from_map(const HashMap *map, const char *key)
 void* get_from_map(const HashMap *map, const char *key)
 {
     const uint hash = __HashMap_hash(key);
-    const __HashMap_Entry *current = map->table[hash];
+    const HashMap_Entry *current = map->table[hash];
 
     while (current != NULL) {
         if (strcmp(current->key, key) == 0) {
@@ -137,13 +137,13 @@ void destroy_hash_map(HashMap *map)
 {
     for (int i = 0; i < __HASH_MAP_TABLE_SIZE; i++)
     {
-        __HashMap_Entry *current = map->table[i];
+        HashMap_Entry *current = map->table[i];
 
         // Iterate the linked list
         while (current != NULL)
         {
             // Free immediately
-            __HashMap_Entry *temp = current;
+            HashMap_Entry *temp = current;
             current = current->next;
             free(temp->key);
             free(temp);
