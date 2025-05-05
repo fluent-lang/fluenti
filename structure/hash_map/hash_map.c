@@ -204,7 +204,7 @@ bool map_iterator_has_next(const HashMapIterator *iterator) {
     return next_bucket_index < __HASH_MAP_TABLE_SIZE;
 }
 
-void map_iterator_next(HashMapIterator *iterator, const char **key, void **value) {
+void map_iterator_next(HashMapIterator *iterator, char **key, void **value) {
     if (iterator->current != NULL)
     {
         *key = iterator->current->key;

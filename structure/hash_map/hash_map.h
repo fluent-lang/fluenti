@@ -44,6 +44,6 @@ HashMap *create_hash_map();
 
 HashMapIterator create_map_iterator(const HashMap *map);
 bool map_iterator_has_next(const HashMapIterator *iterator);
-void map_iterator_next(HashMapIterator *iterator, const char **key, void **value);
+void map_iterator_next(HashMapIterator *iterator, char **key, void **value);
 
 #endif //HASH_MAP_H
