@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <fluent_libc/str_copy/library.h>
 
-void on_destroy_hook(FluentObject *object)
+void on_destroy_hook(bool _, FluentObject *object)
 {
     const Argv *element = object->element;
     if (element->static_flags != NULL)
@@ -82,6 +82,7 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
     char *last_flag_name = NULL;
 
     // Iterate over argv
+    argv++;
     while (*argv)
     {
         // Get the current argument
@@ -99,6 +100,7 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
             // Free the ptr immediately and set it to NULL
             free(last_flag_name);
             last_flag_name = NULL;
+            parsing_flag = FALSE;
             continue;
         }
 
@@ -131,6 +133,8 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
 
                 // Copy the string
                 str_copy(arg + 2, name);
+
+                last_flag_name = name;
             } else if (arg[1] != '\0')
             {
                 // Make sure the string ends at index 2
