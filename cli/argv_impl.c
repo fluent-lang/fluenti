@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <fluent_libc/str_copy/library.h>
 
+#include "../runtime/print/print.h"
+
 void on_destroy_hook(bool _, FluentObject *object)
 {
     const Argv *element = object->element;
@@ -59,8 +61,9 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
     while (map_iterator_has_next(&iterator))
     {
         char *key;
-        Flag *value;
-        map_iterator_next(&iterator, &key, (void **) &value);
+        HeapGuard *value_guard;
+        map_iterator_next(&iterator, &key, (void **) &value_guard);
+        Flag *value = value_guard->value->element;
 
         // Set the original name
         value->original_name = key;
