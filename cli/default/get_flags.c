@@ -21,22 +21,25 @@
 #include "../flag/flag.h"
 #include "get_flags.h"
 
-void handle_flag_destroy(FluentObject *object)
+void handle_flag_destroy(const bool is_cleanup, FluentObject *object)
 {
     // Get the map
     const HashMap *map = object->element;
 
-    // Get the path guard
-    HeapGuard *path_guard = get_from_map(map, "path");
+    if (!is_cleanup)
+    {
+        // Get the path guard
+        HeapGuard *path_guard = get_from_map(map, "path");
 
-    // Drop the path guard
-    drop_guard(path_guard);
+        // Drop the path guard
+        drop_guard(path_guard);
 
-    // Get the help guard
-    HeapGuard *help_guard = get_from_map(map, "help");
+        // Get the help guard
+        HeapGuard *help_guard = get_from_map(map, "help");
 
-    // Drop the help guard
-    drop_guard(help_guard);
+        // Drop the help guard
+        drop_guard(help_guard);
+    }
 
     // Destroy the map directly
     on_hash_map_destroy(object);
