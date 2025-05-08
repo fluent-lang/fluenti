@@ -153,12 +153,12 @@ void expand_guard(HeapGuard *guard, const size_t size)
     guard->value->element = new_ptr;
 }
 
-void destroy_guard(HeapGuard *guard)
+void destroy_guard(const bool is_cleanup, HeapGuard *guard)
 {
     // See if we have an on_destroy function
     if (guard->on_destroy != NULL)
     {
-        guard->on_destroy(guard->value);
+        guard->on_destroy(is_cleanup, guard->value);
     }
 
     // Destroy the mutex
@@ -208,7 +208,7 @@ void drop_guard(HeapGuard *guard)
     {
         // Unlock the guard's mutex
         unlock_mutex(guard->mutex);
-        destroy_guard(guard);
+        destroy_guard(FALSE, guard);
 
         // Remove the guard from the heap
         Heap *current = heap;
@@ -253,7 +253,7 @@ void cleanup_heap()
         Heap* next = current->next;
 
         // Destroy the guard
-        destroy_guard(current->guard);
+        destroy_guard(TRUE, current->guard);
 
         // Free the guard
         free(current->guard);
