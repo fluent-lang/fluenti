@@ -23,8 +23,6 @@
 #include <stdlib.h>
 #include <fluent_libc/str_copy/library.h>
 
-#include "../runtime/print/print.h"
-
 void on_destroy_hook(bool _, FluentObject *object)
 {
     const Argv *element = object->element;
