@@ -50,8 +50,8 @@ add_executable(fluenti main.c
         shared/on_hash_map_destroy.c
         shared/on_hash_map_destroy.h
         util/read_file/read_file.c
-        util/space_formatter/space_formatter.c
-        util/space_formatter/space_formatter.h
+        algorithm/space_formatter/space_formatter.c
+        algorithm/space_formatter/space_formatter.h
         util/help_generator/help_generator.c
         util/help_generator/help_generator.h
         structure/string_builder/string_builder.c
