@@ -99,7 +99,6 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
             insert_to_map(result->string_flags, last_flag_name, (void *) arg);
 
             // Free the ptr immediately and set it to NULL
-            free(last_flag_name);
             last_flag_name = NULL;
             parsing_flag = FALSE;
             continue;
@@ -117,11 +116,6 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
                 // Make sure the string does not end at index 2
                 if (arg[2] == '\0')
                 {
-                    if (last_flag_name != NULL)
-                    {
-                        free(last_flag_name);
-                    }
-
                     result->success = FALSE;
                     return guard;
                 }
@@ -141,11 +135,6 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
                 // Make sure the string ends at index 2
                 if (arg[2] != '\0')
                 {
-                    if (last_flag_name != NULL)
-                    {
-                        free(last_flag_name);
-                    }
-
                     result->success = FALSE;
                     return guard;
                 }
@@ -165,16 +154,17 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
             }
 
             // Get the flag by name
-            const Flag *flag = get_from_map(flags, last_flag_name);
+            const HeapGuard *flag_guard = get_from_map(flags, last_flag_name);
 
             // Check if it is NULL
-            if (flag == NULL)
+            if (flag_guard == NULL)
             {
                 free(last_flag_name);
                 result->success = FALSE;
                 return guard;
             }
 
+            const Flag* flag = flag_guard->value->element;
             // Insert to the parsed flags if needed
             if (flag->type == STATIC)
             {
@@ -189,6 +179,8 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
                 parsing_flag = TRUE;
             }
 
+            free(last_flag_name);
+            last_flag_name = flag->original_name;
             continue;
         }
 
