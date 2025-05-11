@@ -57,7 +57,7 @@ void generate_help(const char* name, const char* desc, const HashMap *flags)
             const Flag *value = value_guard->value->element;
 
             // Ignore flags that aren't the original ones
-            if (key[0] == '\0')
+            if (key[0] == '\0' || key != value->original_name)
             {
                 continue;
             }
