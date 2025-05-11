@@ -56,6 +56,8 @@ add_executable(fluenti main.c
         util/help_generator/help_generator.h
         structure/string_builder/string_builder.c
         structure/string_builder/string_builder.h
+        core/core.c
+        core/core.h
 )
 
 # Add fluent_libc as a dependency

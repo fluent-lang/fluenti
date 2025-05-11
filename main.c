@@ -21,10 +21,12 @@
 #define PROGRAM_DESC "The Fluent Language Interpreter"
 #endif
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "cli/argv_impl.h"
 #include "cli/default/get_flags.h"
+#include "core/core.h"
 #include "runtime/init_runtime.h"
 #include "util/help_generator/help_generator.h"
 
@@ -53,6 +55,9 @@ int main(const int argc, const char **argv) {
         generate_help(PROGRAM_NAME, PROGRAM_DESC, flags->value->element);
         return 2;
     }
+
+    // Interpret the path directly
+    interpret(get_from_map(cli_argv->string_flags, "path"));
 
     // Drop the flag guard to free it since we don't need it anymore
     drop_guard(flags);
