@@ -20,7 +20,7 @@
 #include "../../cli/flag/flag.h"
 #include "../../heap/heap_alloc.h"
 #include "../../runtime/print/print.h"
-#include "../space_formatter/space_formatter.h"
+#include "../../algorithm/space_formatter/space_formatter.h"
 #include "../../structure/string_builder/string_builder.h"
 
 void generate_help(const char* name, const char* desc, const HashMap *flags)
