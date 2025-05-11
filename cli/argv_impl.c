@@ -67,7 +67,7 @@ HeapGuard *parse_argv(const int argc, const char **argv, HashMap *flags)
         value->original_name = key;
 
         // Insert into the flags
-        insert_to_map(flags, value->shortcut, value);
+        insert_to_map(flags, value->shortcut, value_guard);
     }
 
     // Create a HashMap for the static & string flags
