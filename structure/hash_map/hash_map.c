@@ -115,7 +115,6 @@ void delete_from_map(HashMap *map, const char *key)
             }
 
             free(current->key);
-            free(current->value);
             free(current);
             return;
         }
