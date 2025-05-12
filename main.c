@@ -33,9 +33,8 @@
 int main(const int argc, const char **argv) {
     // Initialize the runtime
     init_runtime();
-
-    // Warn about unstable behavior for Windows
 #ifdef _WIN32
+    // Warn about unstable behavior for Windows
     warn("fluent_libc has not been fully tested on Windows. Proceed with caution.");
 #endif
 
