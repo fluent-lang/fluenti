@@ -142,18 +142,21 @@ void* get_from_map(const HashMap *map, const char *key)
 
 void destroy_hash_map(HashMap *map)
 {
-    for (int i = 0; i < __HASH_MAP_TABLE_SIZE; i++)
+    if (map->len != 0)
     {
-        HashMap_Entry *current = map->table[i];
-
-        // Iterate the linked list
-        while (current != NULL)
+        for (int i = 0; i < __HASH_MAP_TABLE_SIZE; i++)
         {
-            // Free immediately
-            HashMap_Entry *temp = current;
-            current = current->next;
-            free(temp->key);
-            free(temp);
+            HashMap_Entry *current = map->table[i];
+
+            // Iterate the linked list
+            while (current != NULL)
+            {
+                // Free immediately
+                HashMap_Entry *temp = current;
+                current = current->next;
+                free(temp->key);
+                free(temp);
+            }
         }
     }
 
