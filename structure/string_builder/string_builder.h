@@ -32,5 +32,6 @@ void write_to_string_builder(StringBuilder *builder, const char* str);
 void destroy_string_builder(StringBuilder *builder);
 char *collect_string_builder(const StringBuilder *builder);
 void ensure_capacity_in_string_builder(StringBuilder *builder, size_t capacity);
+void reset_string_builder(StringBuilder *builder);
 
 #endif //STRING_BUILDER_H

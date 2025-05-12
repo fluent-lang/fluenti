@@ -113,3 +113,21 @@ char *collect_string_builder(const StringBuilder *builder)
     str_copy(builder->buffer, result);
     return result;
 }
+
+void reset_string_builder(StringBuilder *builder)
+{
+    // Free the buffer
+    free(builder->buffer);
+
+    // Reset the length
+    builder->len = 0;
+    builder->used_capacity = 0;
+
+    // Allocate a new buffer
+    builder->buffer = malloc(sizeof(char) * (builder->capacity + 1)); // +1 for the null terminator
+    if (builder->buffer == NULL)
+    {
+        perror("malloc");
+        exit(1);
+    }
+}
