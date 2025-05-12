@@ -15,13 +15,15 @@
 #include "string_builder.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <fluent_libc/str_copy/library.h>
+
 #include "../../runtime/print/print.h"
 
 StringBuilder create_string_builder(const size_t capacity)
 {
     StringBuilder builder;
     builder.capacity = capacity;
-    builder.buffer = malloc(sizeof(char) * capacity);
+    builder.buffer = malloc(sizeof(char) * (capacity + 1)); // +1 for the null terminator
     builder.used_capacity = 0;
     builder.len = 0;
 
@@ -103,5 +105,11 @@ char *collect_string_builder(const StringBuilder *builder)
 {
     // Add a null terminator to the buffer
     builder->buffer[builder->len] = '\0';
-    return builder->buffer;
+
+    // Allocate a new string to hold the contents
+    char *result = malloc(sizeof(char) * (builder->len + 1)); // +1 for null terminator
+
+    // Copy the string directly
+    str_copy(builder->buffer, result);
+    return result;
 }
