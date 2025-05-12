@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fluent_libc/str_comp/library.h>
 
 uint hash(const char *key)
 {
@@ -103,7 +104,7 @@ void delete_from_map(HashMap *map, const char *key)
 
     while (current != NULL)
     {
-        if (strcmp(current->key, key) == 0)
+        if (str_comp(key, current->key))
         {
             if (prev == NULL)
             {
