@@ -23,7 +23,7 @@
 void generate_help(
     const char *name,
     const char *desc,
-    const ankerl::unordered_dense::map<std::string, std::shared_ptr<Flag>>& flags
+    const ankerl::unordered_dense::map<std::string, std::shared_ptr<fluent::cli::Flag>>& flags
 )
 {
     // We can use the C print implementation directly, no need to use the mutexed
@@ -44,11 +44,11 @@ void generate_help(
         }
 
         // Print the flag info
-        print_padding(key.c_str(), 15);
-        r_print(value->desc.c_str());
+        print_padding(key.data(), 15);
+        r_print(value->desc.data());
 
         // Print the flag metadata
-        if (value->type == STRING)
+        if (value->type == fluent::cli::STRING)
         {
             r_print(" (STRING)");
         }

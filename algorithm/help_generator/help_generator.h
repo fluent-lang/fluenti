@@ -22,12 +22,12 @@
 #include <ankerl/unordered_dense.h>
 #include <memory>
 
-#include "../../cli/flag/flag.h"
+#include "fluent/cli/flag/flag.h"
 
 void generate_help(
     const char *name,
     const char *desc,
-    const ankerl::unordered_dense::map<std::string, std::shared_ptr<Flag>>& flags
+    const ankerl::unordered_dense::map<std::string, std::shared_ptr<fluent::cli::Flag>>& flags
 );
 
 #endif //HELP_GENERATOR_H

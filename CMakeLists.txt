@@ -17,6 +17,13 @@ FetchContent_Declare(
 )
 
 FetchContent_Declare(
+        cli
+        GIT_REPOSITORY https://github.com/fluent-lang/cli
+        GIT_TAG        master
+)
+
+
+FetchContent_Declare(
         fluent_libc
         GIT_REPOSITORY https://github.com/rodrigoo-r/fluent_libc
         GIT_TAG        master
@@ -24,13 +31,10 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(unordered_dense)
 FetchContent_MakeAvailable(fluent_parser)
+FetchContent_MakeAvailable(cli)
 FetchContent_MakeAvailable(fluent_libc)
 
 add_executable(fluenti main.cpp
-        cli/argv_impl.cpp
-        cli/argv_impl.h
-        cli/flag/flag.h
-        cli/flag/flag_type.h
         cli/default/get_flags.h
         cli/default/get_flags.cpp
         std_c/print/print.c
@@ -87,8 +91,10 @@ add_executable(fluenti main.cpp
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/unordered_dense-src/include)
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/fluent_libc-src/include)
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/fluent_parser-src/include)
+target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/cli-src/include)
 target_link_libraries(fluenti PRIVATE unordered_dense)
 target_link_libraries(fluenti PRIVATE fluent_parser)
+target_link_libraries(fluenti PRIVATE cli)
 target_link_libraries(fluenti PRIVATE fluent_libc)
 
 # Add aggressive optimization flags for C++ and C compilers

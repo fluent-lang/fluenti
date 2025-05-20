@@ -54,6 +54,13 @@ file_code::FileCode file_code::convert_code(const std::shared_ptr<fluent::parser
                 break;
             }
 
+            case fluent::parser::Link:
+            {
+                // Skip links directly, as they're not
+                // relevant for interpretation
+                break;
+            }
+
             default:
                 throw std::runtime_error(
                     "Unknown rule in file code conversion: " + std::to_string(child->rule)

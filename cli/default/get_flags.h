@@ -21,8 +21,8 @@
 #include <memory>
 #include <ankerl/unordered_dense.h>
 #include <string>
-#include "../flag/flag.h"
+#include "fluent/cli/argv_impl.h"
 
-ankerl::unordered_dense::map<std::string, std::shared_ptr<Flag>> get_default_flags();
+ankerl::unordered_dense::map<std::string, std::shared_ptr<fluent::cli::Flag>> get_default_flags();
 
 #endif //GET_FLAGS_H
