@@ -18,7 +18,9 @@
 
 #ifndef FILE_CODE_TYPE_H
 #define FILE_CODE_TYPE_H
-#include "../../../parser/parser.h"
+#include <memory>
+#include <fluent/parser/parser.h>
+
 #include "../../type/type_wrapper.h"
 
 file_code::Type process_type(const std::shared_ptr<parser::AST>& type);

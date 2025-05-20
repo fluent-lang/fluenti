@@ -18,8 +18,8 @@
 
 #include "type.h"
 
-#include "../../../util/assert.h"
-#include "../../../util/unwrap.h"
+#include <fluent/util/assert.h>
+#include <fluent/util/unwrap.h>
 
 file_code::Type process_type(const std::shared_ptr<parser::AST>& type)
 {
@@ -27,8 +27,8 @@ file_code::Type process_type(const std::shared_ptr<parser::AST>& type)
     file_code::Type result;
 
     // Get the children
-    const auto children = try_unwrap(type->children);
-    assert(children.empty(), false);
+    const auto children = util::try_unwrap(type->children);
+    util::assert(children.empty(), false);
 
     // Parse all children
     size_t i = 0;

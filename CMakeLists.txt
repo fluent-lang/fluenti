@@ -11,12 +11,19 @@ FetchContent_Declare(
 )
 
 FetchContent_Declare(
+        fluent_parser
+        GIT_REPOSITORY https://github.com/fluent-lang/ir_parser
+        GIT_TAG        master
+)
+
+FetchContent_Declare(
         fluent_libc
         GIT_REPOSITORY https://github.com/rodrigoo-r/fluent_libc
         GIT_TAG        master
 )
 
 FetchContent_MakeAvailable(unordered_dense)
+FetchContent_MakeAvailable(fluent_parser)
 FetchContent_MakeAvailable(fluent_libc)
 
 add_executable(fluenti main.cpp
@@ -38,43 +45,7 @@ add_executable(fluenti main.cpp
         algorithm/help_generator/help_generator.h
         core/core.cpp
         core/core.h
-        lexer/lexer.cpp
-        lexer/lexer.h
-        lexer/token.h
         heap/heap_guard.h
-        lexer/token.cpp
-        parser/parser.cpp
-        parser/parser.h
-        parser/rule/link/link.cpp
-        parser/rule/link/link.h
-        parser/rule/function/function.cpp
-        parser/rule/function/function.h
-        parser/rule/identifier/identifier.cpp
-        parser/rule/identifier/identifier.h
-        parser/rule/type/type.cpp
-        parser/rule/type/type.h
-        parser/rule/reference/reference.cpp
-        parser/rule/reference/reference.h
-        parser/rule/module/module.cpp
-        parser/rule/module/module.h
-        parser/rule/ret/ret.cpp
-        parser/rule/ret/ret.h
-        parser/rule/expr/expr.cpp
-        parser/rule/expr/expr.h
-        parser/rule/ranged/ranged.cpp
-        parser/rule/ranged/ranged.h
-        parser/rule/prop/prop.cpp
-        parser/rule/prop/prop.h
-        parser/rule/binary/binary.cpp
-        parser/rule/binary/binary.h
-        parser/rule/var/var.cpp
-        parser/rule/var/var.h
-        parser/rule/if/if.cpp
-        parser/rule/if/if.h
-        parser/rule/block/block.cpp
-        parser/rule/block/block.h
-        util/assert.h
-        util/unwrap.h
         file_code/file_code.cpp
         file_code/file_code.h
         file_code/type/type_wrapper.h
@@ -89,10 +60,6 @@ add_executable(fluenti main.cpp
         file_code/structure/function/function.h
         file_code/rule/function/function.cpp
         file_code/rule/function/function.h
-        parser/rule/pick/pick.cpp
-        parser/rule/pick/pick.h
-        parser/rule/arithmetic/arithmetic.cpp
-        parser/rule/arithmetic/arithmetic.h
         file_code/rule/mod/mod.cpp
         file_code/rule/mod/mod.h
         core/rule/function/function.cpp
@@ -119,7 +86,9 @@ add_executable(fluenti main.cpp
 
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/unordered_dense-src/include)
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/fluent_libc-src/include)
+target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/fluent_parser-src/include)
 target_link_libraries(fluenti PRIVATE unordered_dense)
+target_link_libraries(fluenti PRIVATE fluent_parser)
 target_link_libraries(fluenti PRIVATE fluent_libc)
 
 # Add aggressive optimization flags for C++ and C compilers

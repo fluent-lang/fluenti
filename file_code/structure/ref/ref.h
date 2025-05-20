@@ -20,7 +20,7 @@
 #define FILE_CODE_STRUCTURE_REF_H
 #include <memory>
 
-#include "../../../parser/parser.h"
+#include <fluent/parser/parser.h>
 #include "../../type/type_wrapper.h"
 
 namespace file_code

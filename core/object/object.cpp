@@ -18,8 +18,6 @@
 
 #include "object.h"
 
-#include "../../util/unwrap.h"
-
 Object convert_to_object(const std::shared_ptr<parser::AST> &ast)
 {
     // Create a result
@@ -50,6 +48,6 @@ Object convert_to_object(const std::shared_ptr<parser::AST> &ast)
             throw std::runtime_error("Invalid object type");
     }
 
-    result.value = try_unwrap(ast->value)->buffer;
+    result.value = util::try_unwrap(ast->value)->buffer;
     return result;
 }

@@ -18,7 +18,7 @@
 
 #include "function.h"
 
-#include "../../../util/unwrap.h"
+#include <fluent/util/unwrap.h>
 #include "../type/type.h"
 
 void process_function(file_code::FileCode &result, const std::shared_ptr<parser::AST> &ast)
@@ -27,10 +27,10 @@ void process_function(file_code::FileCode &result, const std::shared_ptr<parser:
     const auto function = std::make_shared<file_code::Function>();
 
     // Unwrap the children
-    const auto children = try_unwrap(ast->children);
+    const auto children = util::try_unwrap(ast->children);
 
     // Get the function's name
-    const auto name = try_unwrap(children[0]->value);
+    const auto name = util::try_unwrap(children[0]->value);
 
     // Set the function's return type
     function->return_type = process_type(children[1]);
@@ -40,15 +40,15 @@ void process_function(file_code::FileCode &result, const std::shared_ptr<parser:
 
     // Add all parameters
     for (
-        const auto &params_children = try_unwrap(params_node->children);
+        const auto &params_children = util::try_unwrap(params_node->children);
         const auto &param : params_children
     )
     {
         // Get the param's children
-        const auto param_children = try_unwrap(param->children);
+        const auto param_children = util::try_unwrap(param->children);
 
         // Get the param's name
-        const auto param_name = try_unwrap(param_children[0]->value);
+        const auto param_name = util::try_unwrap(param_children[0]->value);
 
         // Get the param's type
         const auto param_type = process_type(param_children[1]);
@@ -67,10 +67,10 @@ void process_function(file_code::FileCode &result, const std::shared_ptr<parser:
         const auto &block = children[i];
 
         // Get the block's children
-        const auto block_children = try_unwrap(block->children);
+        const auto block_children = util::try_unwrap(block->children);
 
         // Get the block's name
-        const auto block_name = try_unwrap(block_children[0]->value);
+        const auto block_name = util::try_unwrap(block_children[0]->value);
 
         // Add the block to the function's blocks
         function->blocks[block_name] = block;

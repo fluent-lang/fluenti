@@ -20,7 +20,7 @@
 #define FILE_CODE_STRUCTURE_FUNCTION_H
 #include <ankerl/unordered_dense.h>
 
-#include "../../../parser/parser.h"
+#include <fluent/parser/parser.h>
 #include "../../../structure/immut_str/immut_str.h"
 #include "../../type/type_wrapper.h"
 

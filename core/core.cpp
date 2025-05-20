@@ -24,10 +24,9 @@
 #include <chrono>
 
 #include "../file_code/file_code.h"
-#include "../lexer/lexer.h"
-#include "../parser/parser.h"
 #include "../std/std.h"
 #include "engine/engine.h"
+#include "fluent/lexer/lexer.h"
 #include "object/object.h"
 
 void convert_refs(
@@ -64,7 +63,7 @@ void interpret(const char *path)
     std::string contents = buffer.str();  // Convert to string
 
     // Tokenize the contents
-    token::TokenStream tokens = tokenize(contents);
+    token::TokenStream tokens = lexer::tokenize(contents);
 
     // Parse the code
     std::shared_ptr<parser::AST> ast = parser::parse_code(&tokens);

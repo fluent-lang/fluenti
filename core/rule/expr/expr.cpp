@@ -19,7 +19,7 @@
 #include <ankerl/unordered_dense.h>
 #include <memory>
 #include "expr.h"
-#include "../../../util/unwrap.h"
+#include <fluent/util/unwrap.h>
 #include "../call/call.h"
 
 bool run_expr(
@@ -33,7 +33,7 @@ bool run_expr(
 )
 {
     // Get the expression's children
-    const auto children = try_unwrap(expr->children);
+    const auto children = util::try_unwrap(expr->children);
 
     // Determine what we have torun
     switch (

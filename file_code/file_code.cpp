@@ -18,7 +18,6 @@
 
 #include "file_code.h"
 
-#include "../util/unwrap.h"
 #include "rule/function/function.h"
 #include "rule/mod/mod.h"
 #include "rule/ref/ref.h"
@@ -30,7 +29,7 @@ file_code::FileCode file_code::convert_code(const std::shared_ptr<parser::AST>& 
 
     for (
         // Unwrap the children
-        const auto children = try_unwrap(root->children);
+        const auto children = util::try_unwrap(root->children);
         // Iterate over all children
         const auto& child : children
     )

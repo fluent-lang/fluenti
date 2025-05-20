@@ -18,7 +18,7 @@
 
 #include "mod.h"
 
-#include "../../../util/unwrap.h"
+#include <fluent/util/unwrap.h>
 #include "../type/type.h"
 
 void process_mod(file_code::FileCode &result, const std::shared_ptr<parser::AST> &ast)
@@ -27,10 +27,10 @@ void process_mod(file_code::FileCode &result, const std::shared_ptr<parser::AST>
     const auto mod = std::make_shared<file_code::Mod>();
 
     // Unwrap the children
-    const auto children = try_unwrap(ast->children);
+    const auto children = util::try_unwrap(ast->children);
 
     // Get the mod name
-    const auto name = try_unwrap(children[0]->value);
+    const auto name = util::try_unwrap(children[0]->value);
 
     // Get the mod name
     for (size_t i = 1; i < children.size(); i++)
