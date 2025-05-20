@@ -228,8 +228,10 @@ public:
      * @param other The HeapGuard to assign from.
      * @return Reference to this.
      */
-    HeapGuard& operator=(const HeapGuard& other) {
-        if (this != &other) {
+    HeapGuard& operator=(const HeapGuard& other)
+    {
+        if (this != &other)
+        {
             drop(); // release current ownership
 
             ptr = other.ptr;
@@ -255,7 +257,8 @@ public:
      * @brief Get the raw pointer.
      * @return Pointer to the managed memory.
      */
-    T* get() const {
+    T* get() const
+    {
         return ptr;
     }
 
@@ -263,7 +266,8 @@ public:
      * @brief Dereference operator.
      * @return Reference to the managed object.
      */
-    T& operator*() const {
+    T& operator*() const
+    {
         return *ptr;
     }
 
@@ -271,7 +275,8 @@ public:
      * @brief Member access operator.
      * @return Pointer to the managed object.
      */
-    T* operator->() const {
+    T* operator->() const
+    {
         return ptr;
     }
 

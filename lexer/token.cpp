@@ -21,13 +21,16 @@
 using namespace std;
 using namespace token;
 
-size_t TokenStream::max() const {
+size_t TokenStream::max() const
+{
     return _max;
 }
 
-std::optional<Token> TokenStream::nth(const size_t index) {
+std::optional<Token> TokenStream::nth(const size_t index)
+{
     // Check if the index is valid
-    if (index >= _max) {
+    if (index >= _max)
+    {
         return nullopt;
     }
 
@@ -35,13 +38,16 @@ std::optional<Token> TokenStream::nth(const size_t index) {
     return tokens[index];
 }
 
-std::optional<Token> TokenStream::curr() {
+std::optional<Token> TokenStream::curr()
+{
     return nth(current);
 }
 
-std::optional<Token> TokenStream::next() {
+std::optional<Token> TokenStream::next()
+{
     // Check if we are at the last element
-    if (current == _max) {
+    if (current == _max)
+    {
         return nullopt;
     }
 
@@ -50,18 +56,22 @@ std::optional<Token> TokenStream::next() {
     return curr();
 }
 
-std::optional<Token> TokenStream::peek() {
+std::optional<Token> TokenStream::peek()
+{
     // Check if we are at the last element
-    if (current == _max) {
+    if (current == _max)
+    {
         return nullopt;
     }
 
     return nth(current + 1);
 }
 
-std::optional<Token> TokenStream::backtrack() {
+std::optional<Token> TokenStream::backtrack()
+{
     // Make sure we aren't at index 0
-    if (current == 0) {
+    if (current == 0)
+    {
         return nullopt;
     }
 
