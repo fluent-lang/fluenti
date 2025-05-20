@@ -18,7 +18,7 @@
 
 #include "object.h"
 
-Object convert_to_object(const std::shared_ptr<parser::AST> &ast)
+Object convert_to_object(const std::shared_ptr<fluent::parser::AST> &ast)
 {
     // Create a result
     Object result;
@@ -26,19 +26,19 @@ Object convert_to_object(const std::shared_ptr<parser::AST> &ast)
     // Determine the object
     switch (ast->rule)
     {
-        case parser::StringLiteral:
+        case fluent::parser::StringLiteral:
         {
             result.type.primitive = file_code::String;
             break;
         }
 
-        case parser::NumLiteral:
+        case fluent::parser::NumLiteral:
         {
             result.type.primitive = file_code::Num;
             break;
         }
 
-        case parser::DecLiteral:
+        case fluent::parser::DecLiteral:
         {
             result.type.primitive = file_code::Dec;
             break;
@@ -48,6 +48,6 @@ Object convert_to_object(const std::shared_ptr<parser::AST> &ast)
             throw std::runtime_error("Invalid object type");
     }
 
-    result.value = util::try_unwrap(ast->value)->buffer;
+    result.value = fluent::util::try_unwrap(ast->value)->buffer;
     return result;
 }

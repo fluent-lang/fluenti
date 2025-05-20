@@ -23,6 +23,6 @@
 
 #include "../../type/type_wrapper.h"
 
-file_code::Type process_type(const std::shared_ptr<parser::AST>& type);
+file_code::Type process_type(const std::shared_ptr<fluent::parser::AST>& type);
 
 #endif //FILE_CODE_TYPE_H

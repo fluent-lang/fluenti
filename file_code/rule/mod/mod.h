@@ -20,6 +20,6 @@
 #define FILE_CODE_MOD_H
 #include "../../file_code.h"
 
-void process_mod(file_code::FileCode &result, const std::shared_ptr<parser::AST> &ast);
+void process_mod(file_code::FileCode &result, const std::shared_ptr<fluent::parser::AST> &ast);
 
 #endif //FILE_CODE_MOD_H

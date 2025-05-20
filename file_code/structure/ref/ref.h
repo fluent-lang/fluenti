@@ -27,7 +27,7 @@ namespace file_code
 {
     typedef struct
     {
-        std::shared_ptr<parser::AST> value;
+        std::shared_ptr<fluent::parser::AST> value;
         Type type;
     } Reference;
 }

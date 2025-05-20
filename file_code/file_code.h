@@ -35,7 +35,7 @@ namespace file_code
         ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Mod>, ImmutStrHash, ImmutStrEqual> mods;
     } FileCode;
 
-    FileCode convert_code(const std::shared_ptr<parser::AST>& root);
+    FileCode convert_code(const std::shared_ptr<fluent::parser::AST>& root);
 }
 
 #endif //FILE_CODE_H

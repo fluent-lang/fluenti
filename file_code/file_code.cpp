@@ -22,33 +22,33 @@
 #include "rule/mod/mod.h"
 #include "rule/ref/ref.h"
 
-file_code::FileCode file_code::convert_code(const std::shared_ptr<parser::AST>& root)
+file_code::FileCode file_code::convert_code(const std::shared_ptr<fluent::parser::AST>& root)
 {
     // Define a result
     FileCode result;
 
     for (
         // Unwrap the children
-        const auto children = util::try_unwrap(root->children);
+        const auto children = fluent::util::try_unwrap(root->children);
         // Iterate over all children
         const auto& child : children
     )
     {
         switch (child->rule)
         {
-            case parser::Ref:
+            case fluent::parser::Ref:
             {
                 process_ref(result, child);
                 break;
             }
 
-            case parser::Function:
+            case fluent::parser::Function:
             {
                 process_function(result, child);
                 break;
             }
 
-            case parser::Mod:
+            case fluent::parser::Mod:
             {
                 process_mod(result, child);
                 break;

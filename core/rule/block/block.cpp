@@ -33,7 +33,7 @@ void run_block(
     const auto block = pair->ast;
 
     // Get the children
-    const auto children = util::try_unwrap(block->children);
+    const auto children = fluent::util::try_unwrap(block->children);
     const auto max_children = std::max(children.size(), static_cast<size_t>(1)) - 1;
 
     // Iterate over all children
@@ -42,7 +42,7 @@ void run_block(
         // Get the child
         switch (const auto &child = children[i]; child->rule)
         {
-            case parser::Expression:
+            case fluent::parser::Expression:
             {
                 if (
                     run_expr(

@@ -63,10 +63,10 @@ void interpret(const char *path)
     std::string contents = buffer.str();  // Convert to string
 
     // Tokenize the contents
-    token::TokenStream tokens = lexer::tokenize(contents);
+    fluent::token::TokenStream tokens = fluent::lexer::tokenize(contents);
 
     // Parse the code
-    std::shared_ptr<parser::AST> ast = parser::parse_code(&tokens);
+    std::shared_ptr<fluent::parser::AST> ast = fluent::parser::parse_code(&tokens);
     file_code::FileCode code = file_code::convert_code(ast);
 
     do_run(code);

@@ -30,6 +30,6 @@ typedef struct
     std::optional<file_code::Mod> mod;
 } Object;
 
-Object convert_to_object(const std::shared_ptr<parser::AST> &ast);
+Object convert_to_object(const std::shared_ptr<fluent::parser::AST> &ast);
 
 #endif //FLUENT_OBJECT_H

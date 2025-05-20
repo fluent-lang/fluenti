@@ -63,7 +63,7 @@ inline void relocate_block(
 
 bool run_call(
     const file_code::FileCode &root,
-    const std::shared_ptr<parser::AST> &call,
+    const std::shared_ptr<fluent::parser::AST> &call,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
     LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
@@ -75,11 +75,11 @@ bool run_call(
     const auto new_pair = std::make_shared<runtime::ExecutionPair>();
 
     // Get the call's children
-    const auto children = util::try_unwrap(call->children);
+    const auto children = fluent::util::try_unwrap(call->children);
 
     // Check if we have a std function
     if (
-        const auto name = util::try_unwrap(children[0]->value);
+        const auto name = fluent::util::try_unwrap(children[0]->value);
         root.functions.contains(name)
     )
     {
@@ -95,7 +95,7 @@ bool run_call(
             const auto &call_param = children[i];
 
             // Get the param's name
-            ImmutStr *param_name = util::try_unwrap(call_param->value);
+            ImmutStr *param_name = fluent::util::try_unwrap(call_param->value);
 
             // Add the object to the pair's stack
             (*new_pair->variables)[name] = get_param(
@@ -119,7 +119,7 @@ bool run_call(
         for (size_t i = 1; i < children.size(); i++)
         {
             // Get the param's name
-            ImmutStr *param_name = util::try_unwrap(children[i]->value);
+            ImmutStr *param_name = fluent::util::try_unwrap(children[i]->value);
 
             // Get the param from the pair
             const auto param = get_param(

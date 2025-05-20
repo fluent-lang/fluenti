@@ -21,10 +21,10 @@
 #include <fluent/util/unwrap.h>
 #include "../type/type.h"
 
-void process_ref(file_code::FileCode &result, const std::shared_ptr<parser::AST> &ast)
+void process_ref(file_code::FileCode &result, const std::shared_ptr<fluent::parser::AST> &ast)
 {
     // Get the tree's children
-    const auto children = util::try_unwrap(ast->children);
+    const auto children = fluent::util::try_unwrap(ast->children);
 
     // Get the ref's name
     const auto& name = children[0];

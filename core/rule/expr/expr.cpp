@@ -24,7 +24,7 @@
 
 bool run_expr(
     const file_code::FileCode &root,
-    const std::shared_ptr<parser::AST> &expr,
+    const std::shared_ptr<fluent::parser::AST> &expr,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
     LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
@@ -33,7 +33,7 @@ bool run_expr(
 )
 {
     // Get the expression's children
-    const auto children = util::try_unwrap(expr->children);
+    const auto children = fluent::util::try_unwrap(expr->children);
 
     // Determine what we have torun
     switch (
@@ -41,7 +41,7 @@ bool run_expr(
         first_child->rule
     )
     {
-        case parser::Call:
+        case fluent::parser::Call:
         {
             return run_call(
                 root,
@@ -54,7 +54,7 @@ bool run_expr(
             );
         }
 
-        case parser::Ret:
+        case fluent::parser::Ret:
         {
             break;
         }

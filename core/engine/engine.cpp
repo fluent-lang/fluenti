@@ -29,7 +29,7 @@ void do_run(file_code::FileCode &code)
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> refs;
 
     // Retrieve the main function
-    util::assert(code.functions.contains("main"), true);
+    fluent::util::assert(code.functions.contains("main"), true);
     const auto main_function = code.functions.at(std::string_view("main", 4));
 
     // Create a new queue for running code as needed

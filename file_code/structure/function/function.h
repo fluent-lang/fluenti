@@ -29,8 +29,8 @@ namespace file_code
     typedef struct
     {
         ankerl::unordered_dense::map<ImmutStr *, Type, ImmutStrHash, ImmutStrEqual> params;
-        std::shared_ptr<parser::AST> body;
-        ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<parser::AST>, ImmutStrHash, ImmutStrEqual> blocks;
+        std::shared_ptr<fluent::parser::AST> body;
+        ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<fluent::parser::AST>, ImmutStrHash, ImmutStrEqual> blocks;
         Type return_type;
     } Function;
 }

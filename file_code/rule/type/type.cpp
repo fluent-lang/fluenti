@@ -21,21 +21,21 @@
 #include <fluent/util/assert.h>
 #include <fluent/util/unwrap.h>
 
-file_code::Type process_type(const std::shared_ptr<parser::AST>& type)
+file_code::Type process_type(const std::shared_ptr<fluent::parser::AST>& type)
 {
     // Create a new Type object
     file_code::Type result;
 
     // Get the children
-    const auto children = util::try_unwrap(type->children);
-    util::assert(children.empty(), false);
+    const auto children = fluent::util::try_unwrap(type->children);
+    fluent::util::assert(children.empty(), false);
 
     // Parse all children
     size_t i = 0;
-    std::shared_ptr<parser::AST> curr = children[i];
+    std::shared_ptr<fluent::parser::AST> curr = children[i];
     const size_t max = children.size();
 
-    while (curr->rule == parser::Pointer)
+    while (curr->rule == fluent::parser::Pointer)
     {
         result.pointers++;
         i++;
@@ -43,29 +43,29 @@ file_code::Type process_type(const std::shared_ptr<parser::AST>& type)
     }
 
     // Parse the base type
-    if (curr->rule == parser::Identifier)
+    if (curr->rule == fluent::parser::Identifier)
     {
         result.base_type = curr->value;
     }
-    else if (curr->rule == parser::Nothing)
+    else if (curr->rule == fluent::parser::Nothing)
     {
         result.primitive = file_code::Nothing;
     }
-    else if (curr->rule == parser::Number)
+    else if (curr->rule == fluent::parser::Number)
     {
         result.primitive = file_code::Num;
     }
-    else if (curr->rule == parser::Decimal)
+    else if (curr->rule == fluent::parser::Decimal)
     {
         result.primitive = file_code::Dec;
     }
-    else if (curr->rule == parser::String)
+    else if (curr->rule == fluent::parser::String)
     {
         result.primitive = file_code::String;
     }
 
     // Parse array types
-    while (i < max && children[i]->rule == parser::ArrayType)
+    while (i < max && children[i]->rule == fluent::parser::ArrayType)
     {
         result.arrays++;
         i++;
