@@ -28,19 +28,19 @@ Object convert_to_object(const std::shared_ptr<fluent::parser::AST> &ast)
     {
         case fluent::parser::StringLiteral:
         {
-            result.type.primitive = file_code::String;
+            result.type.primitive = fluent::file_code::String;
             break;
         }
 
         case fluent::parser::NumLiteral:
         {
-            result.type.primitive = file_code::Num;
+            result.type.primitive = fluent::file_code::Num;
             break;
         }
 
         case fluent::parser::DecLiteral:
         {
-            result.type.primitive = file_code::Dec;
+            result.type.primitive = fluent::file_code::Dec;
             break;
         }
 

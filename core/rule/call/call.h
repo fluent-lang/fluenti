@@ -17,13 +17,12 @@
 //
 
 #ifndef CALL_RUNNER_H
-#define CALL_RUNNER_H
-#include "../../../file_code/file_code.h"
+#define CALL_RUNNER_
 #include "../../../structure/linked_queue/linked_queue.h"
 #include "../../runtime/execution/execution_pair.h"
 
 bool run_call(
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     const std::shared_ptr<fluent::parser::AST> &call,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
     LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,

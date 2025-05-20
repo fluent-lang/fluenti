@@ -25,7 +25,7 @@
 inline std::shared_ptr<Object> get_param(
     ImmutStr * &name,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {
@@ -62,7 +62,7 @@ inline void relocate_block(
 }
 
 bool run_call(
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     const std::shared_ptr<fluent::parser::AST> &call,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
     LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,

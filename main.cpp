@@ -41,11 +41,11 @@ int main(const int argc, const char** argv)
     // Parse the arguments
     const auto result = parse_argv(argc, argv, flags);
 
-    if (!result->success || result->static_flags.contains("help"))
+    if (!result->success || result->statics.contains("help"))
     {
         generate_help(PROGRAM_NAME, PROGRAM_DESC, flags);
 
-        if (result->static_flags.contains("help"))
+        if (result->statics.contains("help"))
         {
             return 0;
         }
@@ -53,6 +53,6 @@ int main(const int argc, const char** argv)
         return 2;
     }
 
-    interpret(result->string_flags.at("path"));
+    interpret(result->strings.at("path"));
     return 0;
 }

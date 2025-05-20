@@ -19,7 +19,7 @@
 #include "ref.h"
 
 std::shared_ptr<Object>load_ref(
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     ImmutStr *const &name,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )

@@ -21,13 +21,13 @@
 
 #include <memory>
 
-#include "../../file_code/file_code.h"
+#include "fluent/file_code/file_code.h"
 
 typedef struct
 {
-    file_code::Type type;
+    fluent::file_code::Type type;
     void * value = nullptr;
-    std::optional<file_code::Mod> mod;
+    std::optional<fluent::file_code::Mod> mod;
 } Object;
 
 Object convert_to_object(const std::shared_ptr<fluent::parser::AST> &ast);

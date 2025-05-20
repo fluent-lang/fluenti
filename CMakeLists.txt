@@ -46,22 +46,6 @@ add_executable(fluenti main.cpp
         core/core.cpp
         core/core.h
         heap/heap_guard.h
-        file_code/file_code.cpp
-        file_code/file_code.h
-        file_code/type/type_wrapper.h
-        file_code/structure/mod/mod.h
-        file_code/rule/ref/ref.cpp
-        file_code/rule/ref/ref.h
-        file_code/rule/type/type.cpp
-        file_code/rule/type/type.h
-        structure/immut_str/immut_str.cpp
-        structure/immut_str/immut_str.h
-        file_code/structure/ref/ref.h
-        file_code/structure/function/function.h
-        file_code/rule/function/function.cpp
-        file_code/rule/function/function.h
-        file_code/rule/mod/mod.cpp
-        file_code/rule/mod/mod.h
         core/rule/function/function.cpp
         core/rule/function/function.h
         core/object/object.h

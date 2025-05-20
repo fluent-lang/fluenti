@@ -19,13 +19,12 @@
 #ifndef FUNCTION_RUNNER_H
 #define FUNCTION_RUNNER_H
 
-#include "../../../file_code/file_code.h"
-#include "../../../file_code/structure/function/function.h"
 #include "../../object/object.h"
+#include "fluent/file_code/file_code.h"
 
 Object run_function(
-    const file_code::Function &function,
-    const file_code::FileCode &root
+    const fluent::file_code::Function &function,
+    const fluent::file_code::FileCode &root
 );
 
 #endif //FUNCTION_RUNNER_H

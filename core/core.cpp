@@ -22,29 +22,11 @@
 #include <sstream>
 #include <string>
 #include <chrono>
-
-#include "../file_code/file_code.h"
 #include "../std/std.h"
 #include "engine/engine.h"
+#include "fluent/file_code/converter.h"
+#include "fluent/file_code/file_code.h"
 #include "fluent/lexer/lexer.h"
-#include "object/object.h"
-
-void convert_refs(
-    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
-    const file_code::FileCode &code
-)
-{
-    // Iterate over all references
-    for (const auto &[name, ref] : code.refs)
-    {
-        // Create a new object
-        const auto obj = std::make_shared<Object>();
-        obj->type = ref->type;
-
-        // Insert the object into the refs map
-        refs[name] = obj;
-    }
-}
 
 void interpret(const char *path)
 {
@@ -62,12 +44,9 @@ void interpret(const char *path)
     buffer << file.rdbuf();  // Read the whole file
     std::string contents = buffer.str();  // Convert to string
 
-    // Tokenize the contents
-    fluent::token::TokenStream tokens = fluent::lexer::tokenize(contents);
-
     // Parse the code
-    std::shared_ptr<fluent::parser::AST> ast = fluent::parser::parse_code(&tokens);
-    file_code::FileCode code = file_code::convert_code(ast);
-
+    auto tokens = fluent::lexer::tokenize(contents);
+    const auto ast = fluent::parser::parse_code(&tokens);
+    auto code = fluent::file_code::convert_code(ast);
     do_run(code);
 }

@@ -23,7 +23,7 @@
 #include "../rule/block/block.h"
 #include "../runtime/execution/execution_pair.h"
 
-void do_run(file_code::FileCode &code)
+void do_run(fluent::file_code::FileCode &code)
 {
     // Define a map to lazily initialize references
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> refs;

@@ -18,6 +18,7 @@
 
 #ifndef LINKED_QUEUE_H
 #define LINKED_QUEUE_H
+#include <stdexcept>
 
 template <typename T>
 struct LinkedQueueElement

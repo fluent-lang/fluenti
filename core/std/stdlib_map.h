@@ -21,7 +21,6 @@
 #include <ankerl/unordered_dense.h>
 
 #include "../../runtime/print/print.h"
-#include "../../structure/immut_str/immut_str.h"
 #include "../object/object.h"
 
 namespace fluent_std

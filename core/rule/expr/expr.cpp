@@ -23,7 +23,7 @@
 #include "../call/call.h"
 
 bool run_expr(
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     const std::shared_ptr<fluent::parser::AST> &expr,
     const std::shared_ptr<runtime::ExecutionPair> &pair,
     LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,

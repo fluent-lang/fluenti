@@ -19,8 +19,8 @@
 #include "function.h"
 
 Object run_function(
-    const file_code::Function &function,
-    const file_code::FileCode &root
+    const fluent::file_code::Function &function,
+    const fluent::file_code::FileCode &root
 )
 {
     // Define a result

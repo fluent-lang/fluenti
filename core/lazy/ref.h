@@ -19,12 +19,11 @@
 #ifndef LAZY_REF_H
 #define LAZY_REF_H
 
-#include "../../file_code/file_code.h"
-#include "../../file_code/structure/ref/ref.h"
 #include "../object/object.h"
+#include "fluent/file_code/file_code.h"
 
 std::shared_ptr<Object> load_ref(
-    const file_code::FileCode &root,
+    const fluent::file_code::FileCode &root,
     ImmutStr * const&name,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 );
