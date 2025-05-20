@@ -45,7 +45,6 @@ add_executable(fluenti main.cpp
         lexer/token.h
         heap/heap_guard.h
         lexer/token.cpp
-        heap/heap_guard.cpp
         parser/parser.cpp
         parser/parser.h
         parser/rule/link/link.cpp
