@@ -30,17 +30,11 @@ template <typename T>
 class LinkedQueue
 {
     LinkedQueueElement<T> *head = nullptr;
-    LinkedQueueElement<T> *tail = nullptr;
 
 public:
-    explicit LinkedQueue()
-    {
-        // Create a new head for the list
-        head = new LinkedQueueElement<T>();
-        tail = head;
-    }
+    explicit LinkedQueue() = default;
 
-    void append_top(const T value)
+    void enqueue(const T value)
     {
         // Create a new value
         auto *new_element = new LinkedQueueElement<T>();
@@ -57,12 +51,6 @@ public:
         const auto *temp = head;
         head = head->next;
 
-        // Check if the tail points to the head
-        if (tail == temp)
-        {
-            tail = head;
-        }
-
         // Delete the head
         delete temp;
     }
@@ -72,7 +60,7 @@ public:
         return head == nullptr;
     }
 
-    T get_top()
+    T peek()
     {
         // Panic if the head is null
         if (head == nullptr)

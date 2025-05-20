@@ -35,7 +35,7 @@ void do_run(const file_code::FileCode &code)
 
     // Create a new queue for running code as needed
     LinkedQueue<runtime::ExecutionPair> queue;
-    queue.append_top(
+    queue.enqueue(
         {
             .ast = main_function->body,
         }
@@ -45,7 +45,7 @@ void do_run(const file_code::FileCode &code)
     while (!queue.empty())
     {
         // Get the first element
-        const auto &pair = queue.get_top();
+        const auto &pair = queue.peek();
 
         // Delete the first element
         queue.release_top();

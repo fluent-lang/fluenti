@@ -117,5 +117,5 @@ void run_call(
     }
 
     // Add the pair to the queue
-    queue.append_top(new_pair);
+    queue.enqueue(new_pair);
 }
