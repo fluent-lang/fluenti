@@ -20,6 +20,7 @@
 #define UNWRAP_H
 
 #include <optional>
+#include <stdexcept>
 
 template <typename T>
 T try_unwrap(std::optional<T> opt)

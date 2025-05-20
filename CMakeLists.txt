@@ -47,8 +47,6 @@ add_executable(fluenti main.cpp
         parser/parser.h
         parser/rule/link/link.cpp
         parser/rule/link/link.h
-        util/assert.h
-        util/unwrap.h
         parser/rule/function/function.cpp
         parser/rule/function/function.h
         parser/rule/identifier/identifier.cpp
@@ -75,6 +73,8 @@ add_executable(fluenti main.cpp
         parser/rule/if/if.h
         parser/rule/block/block.cpp
         parser/rule/block/block.h
+        util/assert.h
+        util/unwrap.h
         file_code/file_code.cpp
         file_code/file_code.h
         file_code/type/type_wrapper.h
