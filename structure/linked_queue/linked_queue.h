@@ -41,6 +41,14 @@ public:
         auto *new_element = new LinkedQueueElement<T>();
         new_element->value = value;
 
+        // Relocate the tail if needed
+        if (tail == nullptr)
+        {
+            tail = new_element;
+            head = new_element;
+            return;
+        }
+
         // Relocate the head
         new_element->next = head;
         head = new_element;
