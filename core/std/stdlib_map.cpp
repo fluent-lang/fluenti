@@ -19,6 +19,7 @@
 #include <functional>
 
 #include "../../runtime/print/print.h"
+#include "../../runtime/panic/panic.h"
 #include "../object/object.h"
 #include "../runtime/execution/execution_pair.h"
 
@@ -32,6 +33,7 @@ ankerl::unordered_dense::segmented_map<
 > stdlib_map = {
     { ImmutStr("println", 7, false), runtime::println },
     { ImmutStr("print", 5, false), runtime::print },
+    { ImmutStr("panic", 5, false), runtime::panic },
 };
 
 namespace fluent_std
