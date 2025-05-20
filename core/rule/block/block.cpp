@@ -24,25 +24,40 @@
 
 void run_block(
     const file_code::FileCode &root,
-    const runtime::ExecutionPair &pair,
-    LinkedQueue<runtime::ExecutionPair> &queue,
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {
     // Get the block
-    const auto block = pair.ast;
+    const auto block = pair->ast;
+
+    // Get the children
+    const auto children = try_unwrap(block->children);
+    const auto max_children = std::max(children.size(), static_cast<size_t>(1)) - 1;
 
     // Iterate over all children
-    for (
-        const auto children = try_unwrap(block->children);
-        const auto &child : children
-    )
+    for (size_t i = pair->start_at; i <= max_children; i++)
     {
-        switch (child->rule)
+        // Get the child
+        switch (const auto &child = children[i]; child->rule)
         {
             case parser::Expression:
             {
-                run_expr(root, child, pair, queue, refs);
+                if (
+                    run_expr(
+                        root,
+                        child,
+                        pair,
+                        queue,
+                        refs, i,
+                        i == max_children
+                    )
+                )
+                {
+                    return;
+                }
+
                 break;
             }
 

@@ -22,18 +22,18 @@
 #include "../../../util/unwrap.h"
 #include "../call/call.h"
 
-void run_expr(
+bool run_expr(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &expr,
-    const runtime::ExecutionPair &pair,
-    LinkedQueue<runtime::ExecutionPair> &queue,
-    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
+    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
+    const size_t idx,
+    const bool is_last
 )
 {
     // Get the expression's children
     const auto children = try_unwrap(expr->children);
-
-    // Get the first child
 
     // Determine what we have torun
     switch (
@@ -43,18 +43,25 @@ void run_expr(
     {
         case parser::Call:
         {
-            run_call(
+            return run_call(
                 root,
                 first_child,
                 pair,
                 queue,
-                refs
+                refs,
+                idx,
+                is_last
             );
+        }
 
+        case parser::Ret:
+        {
             break;
         }
 
         default:
             throw std::runtime_error("Invalid expression type");
     }
+
+    return false;
 }

@@ -31,6 +31,7 @@ namespace runtime
         std::shared_ptr<ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual>> variables
             = std::make_shared<ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual>>();
         std::shared_ptr<parser::AST> ast;
+        size_t start_at = 0;
     } ExecutionPair;
 }
 

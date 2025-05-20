@@ -20,6 +20,6 @@
 #define RUNNER_ENGINE_H
 #include "../../file_code/file_code.h"
 
-void do_run(const file_code::FileCode &code);
+void do_run(file_code::FileCode &code);
 
 #endif //RUNNER_ENGINE_H

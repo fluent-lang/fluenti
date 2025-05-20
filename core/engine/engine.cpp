@@ -24,7 +24,7 @@
 #include "../rule/block/block.h"
 #include "../runtime/execution/execution_pair.h"
 
-void do_run(const file_code::FileCode &code)
+void do_run(file_code::FileCode &code)
 {
     // Define a map to lazily initialize references
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> refs;
@@ -36,12 +36,10 @@ void do_run(const file_code::FileCode &code)
     // Create a new queue for running code as needed
     // Using a vector here wouldn't allow us to pop elements in constant time
     // using a linked list would be a better choice
-    LinkedQueue<runtime::ExecutionPair> queue;
-    queue.enqueue(
-        {
-            .ast = main_function->body,
-        }
-    );
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> queue;
+    const auto main_block = std::make_shared<runtime::ExecutionPair>();
+    main_block->ast = main_function->body;
+    queue.enqueue(main_block);
 
     // Execute directly
     while (!queue.empty())

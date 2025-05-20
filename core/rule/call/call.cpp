@@ -24,32 +24,55 @@
 
 inline std::shared_ptr<Object> get_param(
     ImmutStr * &name,
-    const runtime::ExecutionPair &pair,
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
     const file_code::FileCode &root,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {
     // Check if the local variables contain the name
-    if (pair.variables->contains(name))
+    if (pair->variables->contains(name))
     {
         // Return the object
-        return pair.variables->at(name);
+        return pair->variables->at(name);
     }
 
     // Retrieve the ref
     return load_ref(root, name, refs);
 }
 
-void run_call(
+inline void relocate_block(
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
+    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
+    const size_t idx,
+    const bool is_last
+)
+{
+    // Ignore if we are in the last child
+    if (is_last)
+    {
+        return;
+    }
+
+    // Increment the pair's start at flag
+    pair->start_at = idx + 1;
+
+    // Add the pair back to the end of the queue
+    queue.enqueue_tail(pair);
+}
+
+bool run_call(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &call,
-    const runtime::ExecutionPair &pair,
-    LinkedQueue<runtime::ExecutionPair> &queue,
-    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
+    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
+    const size_t idx,
+    const bool is_last
 )
 {
     // Create a new execution pair
-    runtime::ExecutionPair new_pair;
+    const auto new_pair = std::make_shared<runtime::ExecutionPair>();
 
     // Get the call's children
     const auto children = try_unwrap(call->children);
@@ -62,7 +85,7 @@ void run_call(
     {
         // Get the function from the root
         const auto function = root.functions.at(name);
-        new_pair.ast = function->body;
+        new_pair->ast = function->body;
 
         // Get the signature's params and iterate over them
         size_t i = 1;
@@ -75,7 +98,7 @@ void run_call(
             ImmutStr *param_name = try_unwrap(call_param->value);
 
             // Add the object to the pair's stack
-            (*new_pair.variables)[name] = get_param(
+            (*new_pair->variables)[name] = get_param(
                 param_name,
                 pair,
                 root,
@@ -113,9 +136,13 @@ void run_call(
         // Directly call the stdlib impl
         it(params);
 
-        return;
+        return false;
     }
 
     // Add the pair to the queue
     queue.enqueue(new_pair);
+
+    // Relocate the block
+    relocate_block(pair, queue, refs, idx, is_last);
+    return true;
 }

@@ -22,12 +22,14 @@
 #include "../../../structure/linked_queue/linked_queue.h"
 #include "../../runtime/execution/execution_pair.h"
 
-void run_call(
+bool run_call(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &call,
-    const runtime::ExecutionPair &pair,
-    LinkedQueue<runtime::ExecutionPair> &queue,
-    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
+    const std::shared_ptr<runtime::ExecutionPair> &pair,
+    LinkedQueue<std::shared_ptr<runtime::ExecutionPair>> &queue,
+    ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs,
+    size_t idx,
+    bool is_last
 );
 
 #endif //CALL_RUNNER_H
