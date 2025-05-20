@@ -58,7 +58,7 @@ inline void relocate_block(
     pair->start_at = idx + 1;
 
     // Add the pair back to the end of the queue
-    queue.enqueue_tail(pair);
+    queue.enqueue(pair);
 }
 
 bool run_call(
@@ -139,10 +139,10 @@ bool run_call(
         return false;
     }
 
-    // Add the pair to the queue
-    queue.enqueue(new_pair);
-
     // Relocate the block
     relocate_block(pair, queue, refs, idx, is_last);
+
+    // Add the pair to the queue
+    queue.enqueue(new_pair);
     return true;
 }
