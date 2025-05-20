@@ -43,10 +43,6 @@ add_executable(fluenti main.cpp
         std_c/runtime.h
         std/std.cpp
         std/std.h
-        algorithm/padding/padding.cpp
-        algorithm/padding/padding.h
-        algorithm/help_generator/help_generator.cpp
-        algorithm/help_generator/help_generator.h
         core/core.cpp
         core/core.h
         heap/heap_guard.h
