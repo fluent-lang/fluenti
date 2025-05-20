@@ -10,7 +10,14 @@ FetchContent_Declare(
         GIT_TAG        main
 )
 
+FetchContent_Declare(
+        fluent_libc
+        GIT_REPOSITORY https://github.com/rodrigoo-r/fluent_libc
+        GIT_TAG        master
+)
+
 FetchContent_MakeAvailable(unordered_dense)
+FetchContent_MakeAvailable(fluent_libc)
 
 add_executable(fluenti main.cpp
         cli/argv_impl.cpp
@@ -113,7 +120,9 @@ add_executable(fluenti main.cpp
 )
 
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/unordered_dense-src/include)
+target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/fluent_libc-src/include)
 target_link_libraries(fluenti PRIVATE unordered_dense)
+target_link_libraries(fluenti PRIVATE fluent_libc)
 
 # Add aggressive optimization flags for C++ and C compilers
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -funroll-loops -flto")
