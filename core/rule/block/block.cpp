@@ -18,13 +18,14 @@
 
 #include "block.h"
 
+#include "../../../structure/linked_queue/linked_queue.h"
 #include "../../../util/unwrap.h"
 #include "../expr/expr.h"
 
 void run_block(
     const file_code::FileCode &root,
     const runtime::ExecutionPair &pair,
-    std::vector<runtime::ExecutionPair> &queue,
+    LinkedQueue<runtime::ExecutionPair> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {

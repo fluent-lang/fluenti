@@ -19,13 +19,14 @@
 #ifndef EXPR_RUNNER_H
 #define EXPR_RUNNER_H
 #include "../../../file_code/file_code.h"
+#include "../../../structure/linked_queue/linked_queue.h"
 #include "../../runtime/execution/execution_pair.h"
 
 void run_expr(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &expr,
     const runtime::ExecutionPair &pair,
-    std::vector<runtime::ExecutionPair> &queue,
+    LinkedQueue<runtime::ExecutionPair> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 );
 

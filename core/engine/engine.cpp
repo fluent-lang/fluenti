@@ -18,6 +18,7 @@
 
 #include "engine.h"
 
+#include "../../structure/linked_queue/linked_queue.h"
 #include "../../util/assert.h"
 #include "../object/object.h"
 #include "../rule/block/block.h"
@@ -33,10 +34,9 @@ void do_run(const file_code::FileCode &code)
     const auto main_function = code.functions.at(std::string_view("main", 4));
 
     // Create a new queue for running code as needed
-    std::vector<runtime::ExecutionPair> queue;
-    queue.push_back(
+    LinkedQueue<runtime::ExecutionPair> queue;
+    queue.append_top(
         {
-            .variables = {},
             .ast = main_function->body,
         }
     );
@@ -44,11 +44,11 @@ void do_run(const file_code::FileCode &code)
     // Execute directly
     while (!queue.empty())
     {
-        // Get the last element
-        const auto &pair = queue.back();
+        // Get the first element
+        const auto &pair = queue.get_top();
 
-        // Delete the last element
-        queue.pop_back();
+        // Delete the first element
+        queue.release_top();
 
         // Run the block
         run_block(code, pair, queue, refs);

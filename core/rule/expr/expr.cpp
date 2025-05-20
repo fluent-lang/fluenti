@@ -26,7 +26,7 @@ void run_expr(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &expr,
     const runtime::ExecutionPair &pair,
-    std::vector<runtime::ExecutionPair> &queue,
+    LinkedQueue<runtime::ExecutionPair> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {

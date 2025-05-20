@@ -117,6 +117,7 @@ add_executable(fluenti main.cpp
         runtime/print/print.h
         core/std/stdlib_map.h
         core/std/stdlib_map.cpp
+        structure/linked_queue/linked_queue.h
 )
 
 target_include_directories(fluenti PRIVATE ${CMAKE_BINARY_DIR}/_deps/unordered_dense-src/include)

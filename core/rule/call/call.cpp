@@ -23,16 +23,16 @@
 #include "../../std/stdlib_map.h"
 
 inline std::shared_ptr<Object> get_param(
-    ImmutStr *const &name,
+    ImmutStr * &name,
     const runtime::ExecutionPair &pair,
     const file_code::FileCode &root,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {
-    // Check if we have a local var or a ref
-    if (name->size > 0 && name->buffer[0] == 'x')
+    // Check if the local variables contain the name
+    if (pair.variables->contains(name))
     {
-        // Get from the stack directly
+        // Return the object
         return pair.variables->at(name);
     }
 
@@ -44,13 +44,12 @@ void run_call(
     const file_code::FileCode &root,
     const std::shared_ptr<parser::AST> &call,
     const runtime::ExecutionPair &pair,
-    std::vector<runtime::ExecutionPair> &queue,
+    LinkedQueue<runtime::ExecutionPair> &queue,
     ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual> &refs
 )
 {
     // Create a new execution pair
     runtime::ExecutionPair new_pair;
-    new_pair.variables = {};
 
     // Get the call's children
     const auto children = try_unwrap(call->children);
@@ -66,14 +65,14 @@ void run_call(
         new_pair.ast = function->body;
 
         // Get the signature's params and iterate over them
-        size_t i = 0;
+        size_t i = 1;
         for (const auto &[name, _] : function->params)
         {
             // Get the call param at index i
-            const auto &call_param = children[i + 1];
+            const auto &call_param = children[i];
 
             // Get the param's name
-            const auto param_name = try_unwrap(call_param->value);
+            ImmutStr *param_name = try_unwrap(call_param->value);
 
             // Add the object to the pair's stack
             (*new_pair.variables)[name] = get_param(
@@ -97,7 +96,7 @@ void run_call(
         for (size_t i = 1; i < children.size(); i++)
         {
             // Get the param's name
-            const auto param_name = try_unwrap(children[i]->value);
+            ImmutStr *param_name = try_unwrap(children[i]->value);
 
             // Get the param from the pair
             const auto param = get_param(
@@ -118,5 +117,5 @@ void run_call(
     }
 
     // Add the pair to the queue
-    queue.push_back(new_pair);
+    queue.append_top(new_pair);
 }
