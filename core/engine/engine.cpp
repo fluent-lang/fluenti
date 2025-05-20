@@ -34,6 +34,8 @@ void do_run(const file_code::FileCode &code)
     const auto main_function = code.functions.at(std::string_view("main", 4));
 
     // Create a new queue for running code as needed
+    // Using a vector here wouldn't allow us to pop elements in constant time
+    // using a linked list would be a better choice
     LinkedQueue<runtime::ExecutionPair> queue;
     queue.enqueue(
         {
