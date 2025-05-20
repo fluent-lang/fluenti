@@ -30,7 +30,6 @@ template <typename T>
 class LinkedQueue
 {
     LinkedQueueElement<T> *head = nullptr;
-    LinkedQueueElement<T> *tail = nullptr;
 
 public:
     explicit LinkedQueue() = default;
@@ -41,36 +40,9 @@ public:
         auto *new_element = new LinkedQueueElement<T>();
         new_element->value = value;
 
-        // Relocate the tail if needed
-        if (tail == nullptr)
-        {
-            tail = new_element;
-            head = new_element;
-            return;
-        }
-
         // Relocate the head
         new_element->next = head;
         head = new_element;
-    }
-
-    void enqueue_tail(const T value)
-    {
-        // Create a new value
-        auto *new_element = new LinkedQueueElement<T>();
-        new_element->value = value;
-
-        // Check if the queue is empty
-        if (head == nullptr)
-        {
-            head = new_element;
-            tail = new_element;
-            return;
-        }
-
-        // Relocate the tail
-        tail->next = new_element;
-        tail = new_element;
     }
 
     void release_top()
@@ -78,12 +50,6 @@ public:
         // Get the head
         const auto *temp = head;
         head = head->next;
-
-        // Check if the tail is the old head
-        if (tail == temp)
-        {
-            tail = head;
-        }
 
         // Delete the head
         delete temp;
@@ -104,18 +70,6 @@ public:
 
         // Return the head's value
         return head->value;
-    }
-
-    T peek_tail()
-    {
-        // Panic if the tail is null
-        if (tail == nullptr)
-        {
-            throw std::runtime_error("LinkedQueue: Tail is null");
-        }
-
-        // Return the tail's value
-        return tail->value;
     }
 
     ~LinkedQueue()
