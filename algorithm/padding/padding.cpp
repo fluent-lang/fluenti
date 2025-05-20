@@ -17,9 +17,8 @@
 //
 
 #include "padding.h"
-
+#include <fluent/string_builder/library.h>
 #include "../../std/std.h"
-#include "../../structure/string_builder/string_builder.h"
 
 void print_padding(const char *str, const size_t spaces)
 {

@@ -22,7 +22,7 @@
 
 #include "../../core/object/object.h"
 #include "../../std/std.h"
-#include "../../structure/string_builder/string_builder.h"
+#include <fluent/string_builder/library.h>
 
 namespace runtime
 {

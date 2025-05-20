@@ -34,8 +34,6 @@ add_executable(fluenti main.cpp
         std/std.h
         algorithm/padding/padding.cpp
         algorithm/padding/padding.h
-        structure/string_builder/string_builder.c
-        structure/string_builder/string_builder.h
         algorithm/help_generator/help_generator.cpp
         algorithm/help_generator/help_generator.h
         core/core.cpp

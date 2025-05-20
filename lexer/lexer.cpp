@@ -23,10 +23,10 @@
 
 #include "../heap/heap_guard.h"
 #include "../std/std.h"
-#include "../structure/string_builder/string_builder.h"
+#include <fluent/string_builder/library.h>
 
 // Define the token map
-ankerl::unordered_dense::map<std::string, token::TokenType> token_map =
+ankerl::unordered_dense::segmented_map<std::string_view, token::TokenType> token_map =
 {
     {"mov", token::Mov},
     {"dec", token::Decimal},
@@ -111,7 +111,10 @@ void push_token(
         token.type = token::StringLiteral;
     }
     // Check if the token is in the map (Collect without copy)
-    else if (const auto it = token_map.find(collect_string_builder_no_copy(&current)); it != token_map.end())
+    else if (
+        const auto it = token_map.find(std::string_view(collect_string_builder_no_copy(&current), current.idx));
+        it != token_map.end()
+    )
     {
         token.type = it->second;
     }
