@@ -28,7 +28,8 @@ namespace runtime
 {
     typedef struct
     {
-        std::shared_ptr<ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual>> variables;
+        std::shared_ptr<ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual>> variables
+            = std::make_shared<ankerl::unordered_dense::map<ImmutStr *, std::shared_ptr<Object>, ImmutStrHash, ImmutStrEqual>>();
         std::shared_ptr<parser::AST> ast;
     } ExecutionPair;
 }
